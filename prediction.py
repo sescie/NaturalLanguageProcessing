@@ -1,6 +1,6 @@
 import streamlit as st
 from keras.models import load_model
-from keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 # Load the previously saved model
 model = load_model('best_model2.h5')
