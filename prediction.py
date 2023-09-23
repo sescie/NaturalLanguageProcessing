@@ -3,7 +3,7 @@ from keras.models import load_model
 from keras.preprocessing.sequence import pad_sequences
 
 # Load the previously saved model
-model = load_model('best_model1.h5')
+model = load_model('best_model2.h5')
 
 def predict_next_words(model, tokenizer, text, num_words=1):
     # ... (Your predict_next_words function as defined)
