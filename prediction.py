@@ -6,17 +6,12 @@ import numpy as np
 import pickle
 
 # Load the model and tokenizer
-model = load_model('best_model2.h5')
+model = load_model('best_model2.h5',compile=False)
 tokenizer = pickle.load(open('tokenizer.pkl', 'rb'))
 
 
 
-# generate a sequence from a language model
-from keras.models import load_model
-from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-# Load the previously saved model
-model = load_model('best_model2.h5',compile = false)
 
 def predict_next_words(model, tokenizer, text, num_words=1):
     """
