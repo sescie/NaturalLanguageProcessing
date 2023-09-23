@@ -63,15 +63,15 @@ def main():
 
     st.title("Generate the next word")
     user_input = st.text_input("Enter any five words: ")
-    lst = list(user_text.split())
+    lst = list(user_input.split())
 
             
 
     if st.button("Generate"):
         
-        if (seed_text is not None and len(lst)==5):
+        if (user_input is not None and len(lst)==5):
         
-            #result =  predict_next_words(model, tokenizer, user_input, num_words=3)
+            result =  predict_next_words(model, tokenizer, user_input, num_words=3)
             st.success(result)
         
         else:
