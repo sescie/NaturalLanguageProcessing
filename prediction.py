@@ -7,7 +7,7 @@ import pickle
 
 # Load the model and tokenizer
 model = load_model('best_model2.h5',compile=False)
-tokenizer = pickle.load(open('tokenizer (3).pkl', 'rb'))
+tokenizer = pickle.load(open('tokenizerr.pkl', 'rb'))
 
 
 
