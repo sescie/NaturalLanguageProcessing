@@ -13,48 +13,6 @@ tokenizer = pickle.load(open('tokenizer.pkl', 'rb'))
 
 
 
-def predict_next_words(model, tokenizer, text, num_words=1):
-    """
-    Predict the next set of words using the trained model.
-
-    Args:
-    - model (keras.Model): The trained model.
-    - tokenizer (Tokenizer): The tokenizer object used for preprocessing.
-    - text (str): The input text.
-    - num_words (int): The number of words to predict.
-
-    Returns:
-    - str: The predicted words.
-    """
-    for _ in range(num_words):
-        # Tokenize and pad the text
-        sequence = tokenizer.texts_to_sequences([text])[0]
-        sequence = pad_sequences([sequence], maxlen=5, padding='pre')
-
-        # Predict the next word
-        predicted_probs = model.predict(sequence, verbose=0)
-        predicted = np.argmax(predicted_probs, axis=-1)
-
-        # Convert the predicted word index to a word
-        output_word = ""
-        for word, index in tokenizer.word_index.items():
-            if index == predicted:
-                output_word = word
-                break
-
-        # Append the predicted word to the text
-        text += " " + output_word
-
-    return ' '.join(text.split(' ')[-num_words:])
-
-
-# Prompt the user for input
-user_input = input("Please type five words in Shona: ")
-
-# Predict the next words
-predicted_words = predict_next_words(model, tokenizer, user_input, num_words=3)
-print(f"The next words might be: {predicted_words}")
-
 
 
 def main():
@@ -81,7 +39,7 @@ def main():
         
         if (seed_text is not None and len(lst)==5):
         
-            result =  predict_next_words(model, tokenizer, user_input, num_words=3)
+            #result =  predict_next_words(model, tokenizer, user_input, num_words=3)
             st.success(result)
         
         else:
