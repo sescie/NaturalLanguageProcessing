@@ -12,30 +12,53 @@ tokenizer = pickle.load(open('tokenizer.pkl', 'rb'))
 
 
 # generate a sequence from a language model
-def generate_seq(model, tokenizer,seed_text):
-        seq_length = 5
-        n_words = 1
-        result = list()
-        in_text = seed_text
-        # generate a fixed number of words
-        for _ in range(n_words):
-                # encode the text as integer
-                encoded = tokenizer.texts_to_sequences([in_text])[0]
-                # truncate sequences to a fixed length
-                encoded = pad_sequences([encoded], maxlen=seq_length, truncating= 'pre' )
-                # predict probabilities for each word
-                #yhat = np.round(model.predict(encoded, verbose=0)).astype(int)
-                yhat = np.argmax(model.predict(encoded, verbose=0),axis=1)
-                # map predicted word index to word
-                out_word = ''
-                for word, index in tokenizer.word_index.items():
-                        if index == yhat:
-                                out_word = word
-                                break
-                # append to input
-                in_text += ' ' + out_word
-                result.append(in_text)
-        return ' ' .join(result)
+from keras.models import load_model
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+# Load the previously saved model
+model = load_model('best_model2.h5',compile = false)
+
+def predict_next_words(model, tokenizer, text, num_words=1):
+    """
+    Predict the next set of words using the trained model.
+
+    Args:
+    - model (keras.Model): The trained model.
+    - tokenizer (Tokenizer): The tokenizer object used for preprocessing.
+    - text (str): The input text.
+    - num_words (int): The number of words to predict.
+
+    Returns:
+    - str: The predicted words.
+    """
+    for _ in range(num_words):
+        # Tokenize and pad the text
+        sequence = tokenizer.texts_to_sequences([text])[0]
+        sequence = pad_sequences([sequence], maxlen=5, padding='pre')
+
+        # Predict the next word
+        predicted_probs = model.predict(sequence, verbose=0)
+        predicted = np.argmax(predicted_probs, axis=-1)
+
+        # Convert the predicted word index to a word
+        output_word = ""
+        for word, index in tokenizer.word_index.items():
+            if index == predicted:
+                output_word = word
+                break
+
+        # Append the predicted word to the text
+        text += " " + output_word
+
+    return ' '.join(text.split(' ')[-num_words:])
+
+
+# Prompt the user for input
+user_input = input("Please type five words in Shona: ")
+
+# Predict the next words
+predicted_words = predict_next_words(model, tokenizer, user_input, num_words=3)
+print(f"The next words might be: {predicted_words}")
 
 
 
@@ -54,7 +77,7 @@ def main():
     st.markdown(html_temp, unsafe_allow_html=True)
 
     st.title("Generate the next word")
-    seed_text = st.text_input("Enter any five words: ")
+    user_input = st.text_input("Enter any five words: ")
     lst = list(seed_text.split())
 
             
@@ -63,7 +86,7 @@ def main():
         
         if (seed_text is not None and len(lst)==5):
         
-            result = generate_seq(model, tokenizer, seed_text)
+            result =  predict_next_words(model, tokenizer, user_input, num_words=3)
             st.success(result)
         
         else:
