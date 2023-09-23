@@ -51,12 +51,12 @@ def predict_next_words(model, tokenizer, text, num_words=1):
 def main():
 
     
-    st.title("NLP: Language Modelling")
+    st.title("Next Word Prediction")
 
     html_temp = """
     <body style="background-color:red;">
-    <div style="background-color:teal ;padding:10px">
-    <h2 style="color:white;text-align:center;">Text Generation App</h2>
+    <div style="background-color:green ;padding:10px">
+    <h2 style="color:white;text-align:center;">Shona Prediction App</h2>
     </div>
     </body>
     """
