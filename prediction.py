@@ -51,7 +51,7 @@ def predict_next_words(model, tokenizer, text, num_words=1):
 def main():
 
     
-    st.title("Next Word Prediction")
+    
 
     html_temp = """
     <body style="background-color:red;">
@@ -62,7 +62,7 @@ def main():
     """
     st.markdown(html_temp, unsafe_allow_html=True)
 
-    st.title("Generate the next word")
+    st.title("Predict next few words ........")
     user_input = st.text_input("Enter any five words: ")
     lst = list(user_input.split())
 
