@@ -63,7 +63,7 @@ def main():
 
     st.title("Generate the next word")
     user_input = st.text_input("Enter any five words: ")
-    lst = list(seed_text.split())
+    lst = list(user_text.split())
 
             
 
