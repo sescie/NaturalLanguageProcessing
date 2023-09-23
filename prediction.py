@@ -6,7 +6,7 @@ import numpy as np
 import pickle
 
 # Load the model and tokenizer
-model = load_model('best_model2.h5', custom_objects={'adam': optimizer})
+model = load_model('best_model2.h5')
 tokenizer = pickle.load(open('tokenizer.pkl', 'rb'))
 
 
