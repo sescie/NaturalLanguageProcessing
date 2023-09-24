@@ -72,7 +72,7 @@ def main():
         
         if (user_input is not None and len(lst)==5):
         
-            result =  predict_next_words(model, tokenizer, user_input, num_words=3)
+            result =  predict_next_words(model, tokenizer, user_input, num_words=1)
             st.success(result)
         
         else:
